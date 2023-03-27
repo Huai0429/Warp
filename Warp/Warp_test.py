@@ -197,13 +197,16 @@ def bilinear_warp_img(img,flow): #from chatGPT
 if __name__ == '__main__':
     img = cv2.imread('./img/test.png',cv2.IMREAD_GRAYSCALE)
     Flow = flow_gen()
-    flow = Flow.gen_flow(center=[img.shape[0]/2,img.shape[1]/2],height=img.shape[0],width=img.shape[1])
+    flow = Flow.gen_flow(center=[img.shape[0]-1,img.shape[1]-1],height=img.shape[0],width=img.shape[1])
     
     img_warped = bilinear_warp_img(img,flow)
+    vis_flow = Flow.visual_flow(flow)
     print(img_warped)
     print(img.dtype)
-    img_warped = tf.cast(img_warped,tf.uint8)
-    cv2.imshow("aa",img_warped)
+    img_warped = img_warped.numpy()
+    # vis_flow = vis_flow.numpy()
+    cv2.imshow("warped image",img_warped)
+    cv2.imshow("flow",vis_flow)
     cv2.waitKey(0)
     
     
