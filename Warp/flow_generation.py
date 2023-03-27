@@ -1,17 +1,17 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-class flow_test:
+class flow_gen:
     def gen_flow(self,center, height, width):
         x0, y0 = center
         if x0 >= height or y0 >= width:
             raise AttributeError('ERROR')
         flow = np.zeros((height, width, 2), dtype=np.float32)
 
-        print(np.arange(width))
-        print(np.expand_dims(np.arange(width), 0))
-        print([height, 1])
-        print(np.tile(np.expand_dims(np.arange(width), 0), [height, 1]))
+        # print(np.arange(width))
+        # print(np.expand_dims(np.arange(width), 0))
+        # print([height, 1])
+        # print(np.tile(np.expand_dims(np.arange(width), 0), [height, 1]))
 
         grid_x = np.tile(np.expand_dims(np.arange(width), 0), [height, 1]) #創造內為[0 - width-1]，維度為height x 1的array 
         grid_y = np.tile(np.expand_dims(np.arange(height), 1), [1, width])
@@ -160,7 +160,7 @@ class flow_test:
 
 
 if __name__ == "__main__":
-    flow = flow_test()
+    flow = flow_gen()
     # Function: gen_flow_circle
     center = [500, 500]
     Flow = flow.gen_flow(center, height=1000, width=1000)
