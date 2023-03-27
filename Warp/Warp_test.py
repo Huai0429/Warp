@@ -5,7 +5,7 @@ import tensorflow as tf
 import cv2
 
 
-def image_warp(im, flow, mode):
+def image_warp(im, flow, mode): # from csdn 
     """Performs a backward warp of an image using the predicted flow.
     numpy version
 
@@ -116,7 +116,7 @@ def image_warp(im, flow, mode):
 
     return warped
 
-def bilinear_warp(img,flow): # for mush tensor
+def bilinear_warp(img,flow): # for pile of tensor from M_LVC
     batch = 100
     grid_b,grid_y,grid_x= tf.meshgrid(tf.range(batch),tf.range(img.shape[1]),tf.range(img.shape[0]),indexing = 'ij')
     grid_b = tf.cast(grid_b,tf.float32)
@@ -161,7 +161,7 @@ def bilinear_warp(img,flow): # for mush tensor
 
     return c_00*x_00 + c_01*x_01 + c_10*x_10 + c_11*x_11
 
-def bilinear_warp_img(img,flow):
+def bilinear_warp_img(img,flow): #from chatGPT
     x, y = tf.unstack(flow, axis = -1)
     # 分别计算四个相邻像素点的坐标
     x1 = tf.floor(x)
@@ -201,8 +201,8 @@ if __name__ == '__main__':
     
     img_warped = bilinear_warp_img(img,flow)
     print(img_warped)
-    print(img.shape)
-    img_warped = tf.cast(img_warped,tf.int64)
+    print(img.dtype)
+    img_warped = tf.cast(img_warped,tf.uint8)
     cv2.imshow("aa",img_warped)
     cv2.waitKey(0)
     
